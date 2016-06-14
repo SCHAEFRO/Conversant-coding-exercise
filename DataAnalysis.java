@@ -45,7 +45,7 @@ public class DataAnalysis
 			System.out.println("Raw data being read from file");
 			//csvBuffer = new BufferedReader(new FileReader("/temp/Coding_exercise/data.Montoya.csv"));
 			csvBuffer = new BufferedReader(new FileReader("data.Montoya.csv"));
-			System.out.println("Raw data read complete");
+			
 						
 			ArrayList<String> tempResult = new ArrayList<String>();
 			
@@ -54,22 +54,25 @@ public class DataAnalysis
 			{
 				//debug to view raw data lines being read in from buffer. 
 				//System.out.println("Raw CSV data: " + rawDataLine);
-				if (rawDataLine != null)
-			    {
-					String[] splitData = rawDataLine.split("\\s*,\\s*");
+				String[] splitData = rawDataLine.split("\\s*,\\s*");
 		
 		            for (int i = 0; i < splitData.length; i++)
 		            {
 			          if (!(splitData[i] == null) || !(splitData[i].length() == 0))
 			             tempResult.add(splitData[i].trim());
 				    }
-			    }
 			}
 			
             //Copy temp array to permanent array structure to hold the loaded data. 
             //Use temp array later to split out data into additional array structures.			
-			transactionData = tempResult;
-				
+			//transactionData = tempResult;  <-----  does not create acutal copy. Just a pointer to original
+			for(String obj : tempResult)
+			  transactionData.add(obj);
+
+			System.out.println("Raw data read complete");
+			
+			System.out.println("Transaction data list created");
+		
 		}
 		catch (IOException e)
 		{
